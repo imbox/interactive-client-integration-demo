@@ -1,0 +1,14 @@
+{
+  "name": "htmx-test-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mock backend for testing the ImBox htmx client integration (a receipt refund flow).",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mustache": "^4.2.0"
+  }
+}

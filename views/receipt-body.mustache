@@ -1,0 +1,41 @@
+{{!
+  The interactive part of a receipt. htmx swaps this fragment in and out, so it
+  is rendered both inside the full block (see receipt.mustache) and on its own
+  as the response to /select and /submit.
+
+  Values come from `toReceiptView()` in server.js.
+}}
+<ul class="items">
+  {{#items}}
+  <li class="item {{#marked}}selected{{/marked}}">
+    <label>
+      <input
+        type="checkbox"
+        {{#marked}}checked{{/marked}}
+        {{#locked}}disabled{{/locked}}
+        hx-post="{{baseUrl}}/select/{{id}}"
+        hx-target="#receipt-{{receiptId}}"
+        hx-swap="innerHTML"
+      />
+      <span class="name">{{description}}</span>
+    </label>
+    <span class="price">{{cost}} kr</span>
+  </li>
+  {{/items}}
+</ul>
+
+<label class="confirm">
+  <input
+    type="checkbox"
+    {{#refundReady}}checked{{/refundReady}}
+    {{^canSubmit}}disabled{{/canSubmit}}
+    hx-post="{{baseUrl}}/submit/{{id}}"
+    hx-target="#receipt-{{id}}"
+    hx-swap="innerHTML"
+  />
+  Confirm ready for refund
+</label>
+
+{{#refundReady}}
+<p class="status">✓ {{selectedCount}} item(s) marked for refund · {{selectedTotal}} kr</p>
+{{/refundReady}}

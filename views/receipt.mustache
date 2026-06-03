@@ -1,0 +1,27 @@
+{{!
+  The full `html` block for one receipt, returned in the integration response.
+  It carries the styling and a stable container (#receipt-<id>) that htmx swaps
+  into; the interactive contents come from the `body` partial (receipt-body).
+
+  `hx-headers:inherited` is inherited by every htmx request inside this block.
+  The `ngrok-skip-browser-warning` header bypasses ngrok's free-tier warning
+  page (which would otherwise break the cross-origin request).
+}}
+<style>
+  .receipt { font-size: 13px; color: #141415; }
+  .receipt ul.items { list-style: none; margin: 0 0 12px; padding: 0; }
+  .receipt li.item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 2px; border-bottom: 1px solid #EBE9ED;
+  }
+  .receipt li.item label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .receipt input[type=checkbox] { accent-color: #634AAF; }
+  .receipt li.item.selected .name { color: #634AAF; font-weight: 500; }
+  .receipt .price { color: #66656A; white-space: nowrap; }
+  .receipt label.confirm { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; }
+  .receipt .status { margin: 8px 0 0; color: #15C26B; font-size: 12px; }
+</style>
+
+<div class="receipt" id="receipt-{{id}}">
+  {{> body}}
+</div>
